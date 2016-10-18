@@ -1,0 +1,30 @@
+group 'lombook-playground'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+allprojects {
+    apply plugin: 'idea'
+
+    version = 1.0
+
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+}
+
+jar {
+    baseName = 'lombook-playground'
+}
+
+dependencies {
+    compile "org.projectlombok:lombok:1.16.10"
+}
