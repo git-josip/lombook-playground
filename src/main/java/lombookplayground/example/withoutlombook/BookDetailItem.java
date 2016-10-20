@@ -1,5 +1,8 @@
 package lombookplayground.example.withoutlombook;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,6 +21,10 @@ public class BookDetailItem {
 		this.price = price;
 		this.description = description;
 		this.readersComments = readersComments;
+	}
+
+	public static BookDetailItem.Builder builder() {
+		return new BookDetailItem.Builder();
 	}
 
 	public void setName(String name) {
@@ -63,46 +70,44 @@ public class BookDetailItem {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof BookDetailItem)) return false;
+	public boolean equals(final Object object) {
+		if (this == object) return true;
+		if (object == null || this.getClass() != object.getClass()) return false;
 
-		BookDetailItem that = (BookDetailItem) o;
+		BookDetailItem otherBookDetailItem = (BookDetailItem)object;
 
-		if (name != null ? !name.equals(that.name) : that.name != null) return false;
-		if (author != null ? !author.equals(that.author) : that.author != null) return false;
-		if (numberOfPages != null ? !numberOfPages.equals(that.numberOfPages) : that.numberOfPages != null) return false;
-		if (price != null ? !price.equals(that.price) : that.price != null) return false;
-		if (description != null ? !description.equals(that.description) : that.description != null) return false;
-		return readersComments != null ? readersComments.equals(that.readersComments) : that.readersComments == null;
-
+		return Objects.equal(name, otherBookDetailItem.name)
+						&& Objects.equal(author, otherBookDetailItem.author)
+						&& Objects.equal(numberOfPages, otherBookDetailItem.numberOfPages)
+						&& Objects.equal(price, otherBookDetailItem.price)
+						&& Objects.equal(description, otherBookDetailItem.description)
+						&& Objects.equal(readersComments, otherBookDetailItem.readersComments);
 	}
-
 	@Override
 	public int hashCode() {
-		int result = name != null ? name.hashCode() : 0;
-		result = 31 * result + (author != null ? author.hashCode() : 0);
-		result = 31 * result + (numberOfPages != null ? numberOfPages.hashCode() : 0);
-		result = 31 * result + (price != null ? price.hashCode() : 0);
-		result = 31 * result + (description != null ? description.hashCode() : 0);
-		result = 31 * result + (readersComments != null ? readersComments.hashCode() : 0);
-		return result;
+		return Objects.hashCode(
+						name,
+						author,
+						numberOfPages,
+						price,
+						description,
+						readersComments
+		);
 	}
-
 	@Override
 	public String toString() {
-		return "BookDetailItem{" +
-						"name='" + name + '\'' +
-						", author='" + author + '\'' +
-						", numberOfPages=" + numberOfPages +
-						", price=" + price +
-						", description='" + description + '\'' +
-						", readersComments=" + readersComments +
-						'}';
+		return MoreObjects.toStringHelper(this)
+						.add("name", name)
+						.add("author", author)
+						.add("numberOfPages", numberOfPages)
+						.add("price", price)
+						.add("description", description)
+						.add("readersComments", readersComments)
+						.toString();
 	}
 
 	public BookDetailItem.Builder toBuilder() {
-		return BookDetailItem.Builder.builder()
+		return BookDetailItem.builder()
 						.setName(this.getName())
 						.setAuthor(this.getAuthor())
 						.setDescription(this.getDescription())
@@ -159,10 +164,6 @@ public class BookDetailItem {
 							this.description,
 							this.readersComments
 			);
-		}
-
-		public static BookDetailItem.Builder builder() {
-			return new BookDetailItem.Builder();
 		}
 	}
 }

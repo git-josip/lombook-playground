@@ -27,4 +27,5 @@ jar {
 
 dependencies {
     compile "org.projectlombok:lombok:1.16.10"
+    compile "com.google.guava:guava:19.0"
 }
