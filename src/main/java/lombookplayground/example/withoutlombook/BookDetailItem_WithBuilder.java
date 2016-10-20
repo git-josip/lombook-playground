@@ -6,7 +6,7 @@ import com.google.common.base.Objects;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BookDetailItem {
+public class BookDetailItem_WithBuilder {
 	private String name;
 	private String author;
 	private Integer numberOfPages;
@@ -14,13 +14,17 @@ public class BookDetailItem {
 	private String description;
 	private List<String> readersComments;
 
-	public BookDetailItem(String name, String author, Integer numberOfPages, BigDecimal price, String description, List<String> readersComments) {
+	public BookDetailItem_WithBuilder(String name, String author, Integer numberOfPages, BigDecimal price, String description, List<String> readersComments) {
 		this.name = name;
 		this.author = author;
 		this.numberOfPages = numberOfPages;
 		this.price = price;
 		this.description = description;
 		this.readersComments = readersComments;
+	}
+
+	public static BookDetailItem_WithBuilder.Builder builder() {
+		return new BookDetailItem_WithBuilder.Builder();
 	}
 
 	public void setName(String name) {
@@ -70,7 +74,7 @@ public class BookDetailItem {
 		if (this == object) return true;
 		if (object == null || this.getClass() != object.getClass()) return false;
 
-		BookDetailItem otherBookDetailItem = (BookDetailItem)object;
+		BookDetailItem_WithBuilder otherBookDetailItem = (BookDetailItem_WithBuilder)object;
 
 		return Objects.equal(name, otherBookDetailItem.name)
 						&& Objects.equal(author, otherBookDetailItem.author)
@@ -100,5 +104,66 @@ public class BookDetailItem {
 						.add("description", description)
 						.add("readersComments", readersComments)
 						.toString();
+	}
+
+	public BookDetailItem_WithBuilder.Builder toBuilder() {
+		return BookDetailItem_WithBuilder.builder()
+						.setName(this.getName())
+						.setAuthor(this.getAuthor())
+						.setDescription(this.getDescription())
+						.setNumberOfPages(this.getNumberOfPages())
+						.setPrice(this.getPrice())
+						.setReadersComments(this.getReadersComments());
+	}
+
+	public static class Builder {
+		private String name;
+		private String author;
+		private Integer numberOfPages;
+		private BigDecimal price;
+		private String description;
+		private List<String> readersComments;
+
+
+		public BookDetailItem_WithBuilder.Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public BookDetailItem_WithBuilder.Builder setAuthor(String author) {
+			this.author = author;
+			return this;
+		}
+
+		public BookDetailItem_WithBuilder.Builder setNumberOfPages(Integer numberOfPages) {
+			this.numberOfPages = numberOfPages;
+			return this;
+		}
+
+		public BookDetailItem_WithBuilder.Builder setPrice(BigDecimal price) {
+			this.price = price;
+			return this;
+		}
+
+		public BookDetailItem_WithBuilder.Builder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public BookDetailItem_WithBuilder.Builder setReadersComments(List<String> readersComments) {
+			this.readersComments = readersComments;
+			return this;
+		}
+
+		public BookDetailItem_WithBuilder build() {
+			return new BookDetailItem_WithBuilder(
+							this.name,
+							this.author,
+							this.numberOfPages,
+							this.price,
+							this.description,
+							this.readersComments
+			);
+		}
 	}
 }
